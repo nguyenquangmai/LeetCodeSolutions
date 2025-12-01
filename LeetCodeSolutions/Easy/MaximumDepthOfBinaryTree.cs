@@ -24,5 +24,36 @@ namespace LeetCodeSolutions.Easy
 
             return 1 + Math.Max(MaxDepth(root.left), MaxDepth(root.right));
         }
+
+        private int MaxDepthQueue(TreeNode root)
+        {
+            if (root == null) return 0;
+
+            int depth = 0;
+
+            Queue<TreeNode> queue = new Queue<TreeNode>();
+
+            queue.Enqueue(root);
+
+            while (queue.Count > 0)
+            {
+                int size = queue.Count;
+
+                for(int i = 0; i < size; i++)
+                {
+                    TreeNode cur = queue.Dequeue();
+
+                    if(cur.left != null)
+                        queue.Enqueue(cur.left);
+
+                    if(cur.right != null)
+                        queue.Enqueue(cur.right);
+                }
+
+                depth++;
+            }
+
+            return depth;
+        }
     }
 }
